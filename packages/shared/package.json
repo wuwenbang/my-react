@@ -1,0 +1,9 @@
+{
+	"name": "shared",
+	"version": "1.0.0",
+	"description": "public supported methods and type definitions",
+	"module": "index.ts",
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
