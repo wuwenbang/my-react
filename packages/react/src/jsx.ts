@@ -17,7 +17,7 @@ export const jsx = (type: ElementType, params: any, ...children: any) => {
 	let ref: Ref = null;
 	const props: Props = {};
 	for (const propKey in params) {
-		const val = props[propKey];
+		const val = params[propKey];
 		if (propKey === 'key') {
 			if (val !== undefined) {
 				key = '' + val;
@@ -30,7 +30,8 @@ export const jsx = (type: ElementType, params: any, ...children: any) => {
 			}
 			continue;
 		}
-		if ({}.hasOwnProperty.call(props, propKey)) {
+		// 判断是否是自有属性（而不是继承来的属性）
+		if ({}.hasOwnProperty.call(params, propKey)) {
 			props[propKey] = val;
 		}
 	}
@@ -45,4 +46,29 @@ export const jsx = (type: ElementType, params: any, ...children: any) => {
 	return ReactElement(type, key, ref, props);
 };
 
-export const jsxDEV = jsx;
+export const jsxDEV = (type: ElementType, params: any) => {
+	console.log(type, params);
+	let key: Key = null;
+	let ref: Ref = null;
+	const props: Props = {};
+	for (const propKey in params) {
+		const val = params[propKey];
+		if (propKey === 'key') {
+			if (val !== undefined) {
+				key = '' + val;
+			}
+			continue;
+		}
+		if (propKey === 'ref') {
+			if (val !== undefined) {
+				ref = val;
+			}
+			continue;
+		}
+		// 判断是否是自有属性（而不是继承来的属性）
+		if ({}.hasOwnProperty.call(params, propKey)) {
+			props[propKey] = val;
+		}
+	}
+	return ReactElement(type, key, ref, props);
+};
