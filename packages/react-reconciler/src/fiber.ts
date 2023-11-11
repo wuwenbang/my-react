@@ -1,6 +1,7 @@
 import { Props, Key } from 'shared/ReactTypes';
 import { NoFlags } from './fiberFlags';
 import { WorkTag } from './workTags';
+import { Container } from './hostConfig';
 export class FiberNode {
 	type: any;
 	tag: WorkTag;
@@ -35,5 +36,17 @@ export class FiberNode {
 		this.alternate = null;
 		// effect
 		this.flags = NoFlags;
+	}
+}
+
+export class FiberRootNode {
+	container: Container;
+	current: FiberNode;
+	finishedWork: FiberNode | null;
+	constructor(container: Container, hostRootFiber: FiberNode) {
+		this.container = container;
+		this.current = hostRootFiber;
+		hostRootFiber.stateNode = this;
+		this.finishedWork = null;
 	}
 }
