@@ -15,6 +15,7 @@ export class FiberNode {
 	memorizedProps: Props | null;
 	alternate: FiberNode | null;
 	flags: number;
+	updateQueue: unknown;
 	constructor(tag: WorkTag, peddingProps: Props, key: Key) {
 		this.tag = tag;
 		this.key = key;
@@ -32,6 +33,8 @@ export class FiberNode {
 		this.pendingProps = peddingProps;
 		// 工作后的 Props
 		this.memorizedProps = null;
+		// 更新队列
+		this.updateQueue = null;
 		// WorkInProgress -> Current / Current -> WorkInProgress
 		this.alternate = null;
 		// effect

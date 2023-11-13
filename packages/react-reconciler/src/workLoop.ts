@@ -8,6 +8,10 @@ const prepareFreshStack = (fiber: FiberNode) => {
 	workInProgress = fiber;
 };
 
+export const scheduleUpdateOnFiber= (fiber:FiberNode) => {
+	// TODO 调度功能
+}
+
 export const renderRoot = (root: FiberNode) => {
 	// initial
 	prepareFreshStack(root);
