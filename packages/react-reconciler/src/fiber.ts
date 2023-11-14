@@ -13,6 +13,7 @@ export class FiberNode {
 	index: number;
 	pendingProps: Props;
 	memorizedProps: Props | null;
+	memorizedState: any;
 	alternate: FiberNode | null;
 	flags: number;
 	updateQueue: unknown;
@@ -33,6 +34,8 @@ export class FiberNode {
 		this.pendingProps = peddingProps;
 		// 工作后的 Props
 		this.memorizedProps = null;
+		// 工作后的 State
+		this.memorizedState = null
 		// 更新队列
 		this.updateQueue = null;
 		// WorkInProgress -> Current / Current -> WorkInProgress

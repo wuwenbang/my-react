@@ -1,18 +1,34 @@
+import { Props } from 'shared/ReactTypes';
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
-import { FiberNode } from './fiber';
+import { FiberNode, FiberRootNode } from './fiber';
+import { NoFlags } from './fiberFlags';
+import { HostRoot } from './workTags';
 
 let workInProgress: FiberNode | null = null;
 
-const prepareFreshStack = (fiber: FiberNode) => {
-	workInProgress = fiber;
+const prepareFreshStack = (root: FiberRootNode) => {
+	workInProgress = createWorkInProgress(root.current, {});
 };
 
-export const scheduleUpdateOnFiber= (fiber:FiberNode) => {
-	// TODO 调度功能
-}
-
-export const renderRoot = (root: FiberNode) => {
+export const scheduleUpdateOnFiber = (fiber: FiberNode) => {
+	// TODO: 调度功能
+	const root = markUpdateFromFiberToRoot(fiber);
+	renderRoot(root);
+};
+export const markUpdateFromFiberToRoot = (fiber: FiberNode) => {
+	let current = fiber;
+	let parent = current.return;
+	while (parent !== null) {
+		current = parent;
+		parent = current.return;
+	}
+	if (current.tag === HostRoot) {
+		return current.stateNode;
+	}
+	return null;
+};
+export const renderRoot = (root: FiberRootNode) => {
 	// initial
 	prepareFreshStack(root);
 	do {
@@ -54,4 +70,25 @@ const completeUnitOfWork = (fiber: FiberNode) => {
 		node = node.return;
 		workInProgress = node;
 	} while (node !== null);
+};
+
+export const createWorkInProgress = (current: FiberNode, pendingProps: Props) => {
+	let wip = current.alternate;
+	if (wip === null) {
+		// mount
+		wip = new FiberNode(current.tag, pendingProps, current.key);
+		wip.type = current.type;
+		wip.stateNode = current.stateNode;
+		wip.alternate = current;
+		current.alternate = wip;
+	} else {
+		// update
+		wip.pendingProps = pendingProps;
+		wip.flags = NoFlags;
+		wip.updateQueue = current.updateQueue;
+		wip.child = current.child;
+		wip.memorizedProps = current.memorizedProps;
+		wip.memorizedState = current.memorizedState;
+	}
+	return wip
 };
