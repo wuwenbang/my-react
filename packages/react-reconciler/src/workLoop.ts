@@ -36,7 +36,9 @@ export const renderRoot = (root: FiberRootNode) => {
 			workLoop();
 			break;
 		} catch (e) {
-			console.warn('work loop error: ', e);
+			if (__DEV__) {
+				console.warn('work loop error: ', e);
+			}
 			workInProgress = null;
 		}
 	} while (true);
@@ -90,5 +92,5 @@ export const createWorkInProgress = (current: FiberNode, pendingProps: Props) =>
 		wip.memorizedProps = current.memorizedProps;
 		wip.memorizedState = current.memorizedState;
 	}
-	return wip
+	return wip;
 };

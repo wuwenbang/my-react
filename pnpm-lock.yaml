@@ -7,6 +7,7 @@ importers:
       '@commitlint/cli': ^17.7.1
       '@commitlint/config-conventional': ^17.7.0
       '@rollup/plugin-commonjs': ^25.0.7
+      '@rollup/plugin-replace': ^5.0.4
       '@rollup/rollup-darwin-arm64': 4.0.2
       '@typescript-eslint/eslint-plugin': ^6.9.1
       '@typescript-eslint/parser': ^6.9.1
@@ -22,6 +23,8 @@ importers:
       rollup-plugin-generate-package-json: ^3.2.0
       rollup-plugin-typescript2: ^0.36.0
       typescript: ^5.2.2
+    dependencies:
+      '@rollup/plugin-replace': 5.0.4_rollup@4.0.2
     devDependencies:
       '@commitlint/cli': 17.7.1
       '@commitlint/config-conventional': 17.7.0
@@ -337,7 +340,6 @@ packages:
 
   /@jridgewell/sourcemap-codec/1.4.15:
     resolution: {integrity: sha1-18bmdVx4VnqVHgSrUu8P0m3lnzI=, tarball: '@jridgewell/sourcemap-codec/download/@jridgewell/sourcemap-codec-1.4.15.tgz'}
-    dev: true
 
   /@jridgewell/trace-mapping/0.3.9:
     resolution: {integrity: sha1-ZTT9WTOlO6fL86F2FeJzoNEnP/k=, tarball: '@jridgewell/trace-mapping/download/@jridgewell/trace-mapping-0.3.9.tgz'}
@@ -404,6 +406,20 @@ packages:
       rollup: 4.0.2
     dev: true
 
+  /@rollup/plugin-replace/5.0.4_rollup@4.0.2:
+    resolution: {integrity: sha1-/vVI3HUdBnR+jcpbDo4fv2R6x+E=, tarball: '@rollup/plugin-replace/download/@rollup/plugin-replace-5.0.4.tgz'}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.0.5_rollup@4.0.2
+      magic-string: 0.30.5
+      rollup: 4.0.2
+    dev: false
+
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha1-5sbDq6B0Ttzj+yB0ki03dsCvKm0=, tarball: '@rollup/pluginutils/download/@rollup/pluginutils-4.2.1.tgz'}
     engines: {node: '>= 8.0.0'}
@@ -425,14 +441,12 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 4.0.2
-    dev: true
 
   /@rollup/rollup-android-arm-eabi/4.0.2:
     resolution: {integrity: sha1-yZD/LEMXtHcSEnL86O5AdbvDa2c=, tarball: '@rollup/rollup-android-arm-eabi/download/@rollup/rollup-android-arm-eabi-4.0.2.tgz'}
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-android-arm64/4.0.2:
@@ -440,21 +454,18 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-darwin-arm64/4.0.2:
     resolution: {integrity: sha1-By+RM/b/ek/LBu2bcYxogpZNUrs=, tarball: '@rollup/rollup-darwin-arm64/download/@rollup/rollup-darwin-arm64-4.0.2.tgz'}
     cpu: [arm64]
     os: [darwin]
-    dev: true
 
   /@rollup/rollup-darwin-x64/4.0.2:
     resolution: {integrity: sha1-PGmIrPepW5CYAektkF37x/fnNUI=, tarball: '@rollup/rollup-darwin-x64/download/@rollup/rollup-darwin-x64-4.0.2.tgz'}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-arm-gnueabihf/4.0.2:
@@ -462,7 +473,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-arm64-gnu/4.0.2:
@@ -471,7 +481,6 @@ packages:
     os: [linux]
     libc: [glibc]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-arm64-musl/4.0.2:
@@ -480,7 +489,6 @@ packages:
     os: [linux]
     libc: [musl]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-x64-gnu/4.0.2:
@@ -489,7 +497,6 @@ packages:
     os: [linux]
     libc: [glibc]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-x64-musl/4.0.2:
@@ -498,7 +505,6 @@ packages:
     os: [linux]
     libc: [musl]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-win32-arm64-msvc/4.0.2:
@@ -506,7 +512,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-win32-ia32-msvc/4.0.2:
@@ -514,7 +519,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-win32-x64-msvc/4.0.2:
@@ -522,7 +526,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@tsconfig/node10/1.0.9:
@@ -543,7 +546,6 @@ packages:
 
   /@types/estree/1.0.3:
     resolution: {integrity: sha1-K+GedZo90Yx5+fQ2vXNjVWwac90=, tarball: '@types/estree/download/@types/estree-1.0.3.tgz'}
-    dev: true
 
   /@types/json-schema/7.0.14:
     resolution: {integrity: sha1-dKl6VXOYCALzLI5HtmNTCrO2t9E=, tarball: '@types/json-schema/download/@types/json-schema-7.0.14.tgz'}
@@ -1460,7 +1462,6 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha1-UvAQF4wqTBF6d1fP6UKtt9LaTKw=, tarball: estree-walker/download/estree-walker-2.0.2.tgz}
-    dev: true
 
   /esutils/2.0.3:
     resolution: {integrity: sha1-dNLrTeC42hKTcRkQ1Qd1ubcQ72Q=, tarball: esutils/download/esutils-2.0.3.tgz}
@@ -1623,7 +1624,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /function-bind/1.1.2:
@@ -2310,7 +2310,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
-    dev: true
 
   /make-dir/2.1.0:
     resolution: {integrity: sha1-XwMQ4YuL6JjMBwCSlaMK5B6R5vU=, tarball: make-dir/download/make-dir-2.1.0.tgz}
@@ -2663,7 +2662,6 @@ packages:
   /picomatch/2.3.1:
     resolution: {integrity: sha1-O6ODNzNkbZ0+SZWUbBNlpn+wekI=, tarball: picomatch/download/picomatch-2.3.1.tgz}
     engines: {node: '>=8.6'}
-    dev: true
 
   /pify/4.0.1:
     resolution: {integrity: sha1-SyzSXFDVmHNcUCkiJP2MbfQeMjE=, tarball: pify/download/pify-4.0.1.tgz}
@@ -2887,7 +2885,6 @@ packages:
       '@rollup/rollup-win32-ia32-msvc': 4.0.2
       '@rollup/rollup-win32-x64-msvc': 4.0.2
       fsevents: 2.3.3
-    dev: true
 
   /run-applescript/5.0.0:
     resolution: {integrity: sha1-4R4cky4FXVxrQNmDdOAmjZsRiZw=, tarball: run-applescript/download/run-applescript-5.0.0.tgz}
