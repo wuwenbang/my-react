@@ -1,5 +1,5 @@
 import { Props, Key, ReactElementType } from 'shared/ReactTypes';
-import { NoFlags } from './fiberFlags';
+import { Flags, NoFlags } from './fiberFlags';
 import { FunctionComponent, HostComponent, WorkTag } from './workTags';
 import { Container } from './hostConfig';
 export class FiberNode {
@@ -17,6 +17,7 @@ export class FiberNode {
 	alternate: FiberNode | null;
 	flags: number;
 	updateQueue: unknown;
+	subtreeFlags: Flags;
 	constructor(tag: WorkTag, peddingProps: Props, key: Key) {
 		this.tag = tag;
 		this.key = key;
@@ -42,6 +43,7 @@ export class FiberNode {
 		this.alternate = null;
 		// effect
 		this.flags = NoFlags;
+		this.subtreeFlags = NoFlags;
 	}
 }
 
@@ -56,6 +58,28 @@ export class FiberRootNode {
 		this.finishedWork = null;
 	}
 }
+
+export const createWorkInProgress = (current: FiberNode, pendingProps: Props) => {
+	let wip = current.alternate;
+	if (wip === null) {
+		// mount
+		wip = new FiberNode(current.tag, pendingProps, current.key);
+		wip.type = current.type;
+		wip.stateNode = current.stateNode;
+		wip.alternate = current;
+		current.alternate = wip;
+	} else {
+		// update
+		wip.pendingProps = pendingProps;
+		wip.flags = NoFlags;
+		wip.subtreeFlags = NoFlags;
+	}
+	wip.updateQueue = current.updateQueue;
+	wip.child = current.child;
+	wip.memorizedProps = current.memorizedProps;
+	wip.memorizedState = current.memorizedState;
+	return wip;
+};
 
 export const createFiberFromElement = (element: ReactElementType): FiberNode => {
 	const { type, key, props } = element;

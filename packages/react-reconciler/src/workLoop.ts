@@ -1,8 +1,6 @@
-import { Props } from 'shared/ReactTypes';
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
-import { FiberNode, FiberRootNode } from './fiber';
-import { NoFlags } from './fiberFlags';
+import { createWorkInProgress, FiberNode, FiberRootNode } from './fiber';
 import { HostRoot } from './workTags';
 
 let workInProgress: FiberNode | null = null;
@@ -42,6 +40,10 @@ export const renderRoot = (root: FiberRootNode) => {
 			workInProgress = null;
 		}
 	} while (true);
+	const finishedWork = root.current.alternate;
+	root.finishedWork = finishedWork;
+	// Consume WIP FiberNode Tree and Flags
+	// commitRoot(root);
 };
 
 const workLoop = () => {
@@ -72,25 +74,4 @@ const completeUnitOfWork = (fiber: FiberNode) => {
 		node = node.return;
 		workInProgress = node;
 	} while (node !== null);
-};
-
-export const createWorkInProgress = (current: FiberNode, pendingProps: Props) => {
-	let wip = current.alternate;
-	if (wip === null) {
-		// mount
-		wip = new FiberNode(current.tag, pendingProps, current.key);
-		wip.type = current.type;
-		wip.stateNode = current.stateNode;
-		wip.alternate = current;
-		current.alternate = wip;
-	} else {
-		// update
-		wip.pendingProps = pendingProps;
-		wip.flags = NoFlags;
-		wip.updateQueue = current.updateQueue;
-		wip.child = current.child;
-		wip.memorizedProps = current.memorizedProps;
-		wip.memorizedState = current.memorizedState;
-	}
-	return wip;
 };
