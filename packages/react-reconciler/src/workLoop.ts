@@ -1,4 +1,5 @@
 import { beginWork } from './beginWork';
+import { commitMutationEffects } from './commitWork';
 import { completeWork } from './completeWork';
 import { createWorkInProgress, FiberNode, FiberRootNode } from './fiber';
 import { MutationMask, NoFlags } from './fiberFlags';
@@ -61,7 +62,8 @@ const commitRoot = (root: FiberRootNode) => {
 	const rootHasEffect = (finishedWork.flags & MutationMask) !== NoFlags;
 	if (subtreeHasEffect || rootHasEffect) {
 		// TODO beforeMutation
-		// TODO mutation
+		// mutation
+		commitMutationEffects(finishedWork);
 		root.current = finishedWork;
 		// TODO layout
 	} else {
