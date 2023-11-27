@@ -20,17 +20,17 @@ importers:
       husky: ^8.0.3
       prettier: ^3.0.3
       rimraf: ^5.0.5
-      rollup: 3.1.0
+      rollup: 4.0.2
       rollup-plugin-generate-package-json: ^3.2.0
       rollup-plugin-typescript2: ^0.36.0
       typescript: ^5.2.2
     dependencies:
-      '@rollup/plugin-replace': 5.0.4_rollup@3.1.0
+      '@rollup/plugin-replace': 5.0.4_rollup@4.0.2
     devDependencies:
       '@commitlint/cli': 17.7.1
       '@commitlint/config-conventional': 17.7.0
-      '@rollup/plugin-alias': 5.0.0_rollup@3.1.0
-      '@rollup/plugin-commonjs': 25.0.7_rollup@3.1.0
+      '@rollup/plugin-alias': 5.0.0_rollup@4.0.2
+      '@rollup/plugin-commonjs': 25.0.7_rollup@4.0.2
       '@rollup/rollup-darwin-arm64': 4.0.2
       '@typescript-eslint/eslint-plugin': 6.9.1_6zldm7dnffi7r2a7lc5c4oleyu
       '@typescript-eslint/parser': 6.9.1_i3vkbg2fztj7jno7sh3heeojya
@@ -42,9 +42,9 @@ importers:
       husky: 8.0.3
       prettier: 3.0.3
       rimraf: 5.0.5
-      rollup: 3.1.0
-      rollup-plugin-generate-package-json: 3.2.0_rollup@3.1.0
-      rollup-plugin-typescript2: 0.36.0_lddymuluihve45u76aihnrpbty
+      rollup: 4.0.2
+      rollup-plugin-generate-package-json: 3.2.0_rollup@4.0.2
+      rollup-plugin-typescript2: 0.36.0_eukughp562wsnfrf2r7rgg6aby
       typescript: 5.2.2
 
   packages/react:
@@ -398,7 +398,7 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /@rollup/plugin-alias/5.0.0_rollup@3.1.0:
+  /@rollup/plugin-alias/5.0.0_rollup@4.0.2:
     resolution: {integrity: sha1-cPPVBL0X2JIuNca2HAi0Cm7CWvI=, tarball: '@rollup/plugin-alias/download/@rollup/plugin-alias-5.0.0.tgz'}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -407,11 +407,11 @@ packages:
       rollup:
         optional: true
     dependencies:
-      rollup: 3.1.0
+      rollup: 4.0.2
       slash: 4.0.0
     dev: true
 
-  /@rollup/plugin-commonjs/25.0.7_rollup@3.1.0:
+  /@rollup/plugin-commonjs/25.0.7_rollup@4.0.2:
     resolution: {integrity: sha1-FFzsdYmtlSFxrralhbvqvQ/TtM8=, tarball: '@rollup/plugin-commonjs/download/@rollup/plugin-commonjs-25.0.7.tgz'}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -420,16 +420,16 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.5_rollup@3.1.0
+      '@rollup/pluginutils': 5.0.5_rollup@4.0.2
       commondir: 1.0.1
       estree-walker: 2.0.2
       glob: 8.1.0
       is-reference: 1.2.1
       magic-string: 0.30.5
-      rollup: 3.1.0
+      rollup: 4.0.2
     dev: true
 
-  /@rollup/plugin-replace/5.0.4_rollup@3.1.0:
+  /@rollup/plugin-replace/5.0.4_rollup@4.0.2:
     resolution: {integrity: sha1-/vVI3HUdBnR+jcpbDo4fv2R6x+E=, tarball: '@rollup/plugin-replace/download/@rollup/plugin-replace-5.0.4.tgz'}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -438,9 +438,9 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.5_rollup@3.1.0
+      '@rollup/pluginutils': 5.0.5_rollup@4.0.2
       magic-string: 0.30.5
-      rollup: 3.1.0
+      rollup: 4.0.2
     dev: false
 
   /@rollup/pluginutils/4.2.1:
@@ -451,7 +451,7 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rollup/pluginutils/5.0.5_rollup@3.1.0:
+  /@rollup/pluginutils/5.0.5_rollup@4.0.2:
     resolution: {integrity: sha1-u7TBdeGev+64wTLC7qDsuJlBpmw=, tarball: '@rollup/pluginutils/download/@rollup/pluginutils-5.0.5.tgz'}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -463,13 +463,93 @@ packages:
       '@types/estree': 1.0.3
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 3.1.0
+      rollup: 4.0.2
+
+  /@rollup/rollup-android-arm-eabi/4.0.2:
+    resolution: {integrity: sha1-yZD/LEMXtHcSEnL86O5AdbvDa2c=, tarball: '@rollup/rollup-android-arm-eabi/download/@rollup/rollup-android-arm-eabi-4.0.2.tgz'}
+    cpu: [arm]
+    os: [android]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-android-arm64/4.0.2:
+    resolution: {integrity: sha1-RjJ74k11x8U7ewZa8ppiaI6uPxs=, tarball: '@rollup/rollup-android-arm64/download/@rollup/rollup-android-arm64-4.0.2.tgz'}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
+    optional: true
 
   /@rollup/rollup-darwin-arm64/4.0.2:
     resolution: {integrity: sha1-By+RM/b/ek/LBu2bcYxogpZNUrs=, tarball: '@rollup/rollup-darwin-arm64/download/@rollup/rollup-darwin-arm64-4.0.2.tgz'}
     cpu: [arm64]
     os: [darwin]
-    dev: true
+
+  /@rollup/rollup-darwin-x64/4.0.2:
+    resolution: {integrity: sha1-PGmIrPepW5CYAektkF37x/fnNUI=, tarball: '@rollup/rollup-darwin-x64/download/@rollup/rollup-darwin-x64-4.0.2.tgz'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-linux-arm-gnueabihf/4.0.2:
+    resolution: {integrity: sha1-R5fLA40MtL7sqlb9sXaarEJTsCo=, tarball: '@rollup/rollup-linux-arm-gnueabihf/download/@rollup/rollup-linux-arm-gnueabihf-4.0.2.tgz'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-linux-arm64-gnu/4.0.2:
+    resolution: {integrity: sha1-38Wxs/HpkSeP9Apj4k6E4oFks08=, tarball: '@rollup/rollup-linux-arm64-gnu/download/@rollup/rollup-linux-arm64-gnu-4.0.2.tgz'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-linux-arm64-musl/4.0.2:
+    resolution: {integrity: sha1-u92kRy2TL0wnW5f2+Ca0ZI1FirY=, tarball: '@rollup/rollup-linux-arm64-musl/download/@rollup/rollup-linux-arm64-musl-4.0.2.tgz'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-linux-x64-gnu/4.0.2:
+    resolution: {integrity: sha1-lN2dE132441P0sok9aKs4ziWlv4=, tarball: '@rollup/rollup-linux-x64-gnu/download/@rollup/rollup-linux-x64-gnu-4.0.2.tgz'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-linux-x64-musl/4.0.2:
+    resolution: {integrity: sha1-iCRndsK0W1Xl1WoHDqxZLRAoDVk=, tarball: '@rollup/rollup-linux-x64-musl/download/@rollup/rollup-linux-x64-musl-4.0.2.tgz'}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-win32-arm64-msvc/4.0.2:
+    resolution: {integrity: sha1-hTrMbsfrVz+6EWHFcH1+HRwSs7A=, tarball: '@rollup/rollup-win32-arm64-msvc/download/@rollup/rollup-win32-arm64-msvc-4.0.2.tgz'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-win32-ia32-msvc/4.0.2:
+    resolution: {integrity: sha1-2on+SfU4QjXMuEbpOywxZVHyR0o=, tarball: '@rollup/rollup-win32-ia32-msvc/download/@rollup/rollup-win32-ia32-msvc-4.0.2.tgz'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    optional: true
+
+  /@rollup/rollup-win32-x64-msvc/4.0.2:
+    resolution: {integrity: sha1-TDukFkPMHIPdyvnYZL8W9hL5Ccs=, tarball: '@rollup/rollup-win32-x64-msvc/download/@rollup/rollup-win32-x64-msvc-4.0.2.tgz'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    optional: true
 
   /@tsconfig/node10/1.0.9:
     resolution: {integrity: sha1-30kH/AeohpImN7FeAtTOvEwAIbI=, tarball: '@tsconfig/node10/download/@tsconfig/node10-1.0.9.tgz'}
@@ -2784,18 +2864,18 @@ packages:
       glob: 10.3.10
     dev: true
 
-  /rollup-plugin-generate-package-json/3.2.0_rollup@3.1.0:
+  /rollup-plugin-generate-package-json/3.2.0_rollup@4.0.2:
     resolution: {integrity: sha1-6cHTWPK+bFi0mFOvWCBSktRaM/8=, tarball: rollup-plugin-generate-package-json/download/rollup-plugin-generate-package-json-3.2.0.tgz}
     engines: {node: '>=8.3'}
     peerDependencies:
       rollup: '>=1.0.0'
     dependencies:
       read-pkg: 5.2.0
-      rollup: 3.1.0
+      rollup: 4.0.2
       write-pkg: 4.0.0
     dev: true
 
-  /rollup-plugin-typescript2/0.36.0_lddymuluihve45u76aihnrpbty:
+  /rollup-plugin-typescript2/0.36.0_eukughp562wsnfrf2r7rgg6aby:
     resolution: {integrity: sha1-MJVk63DXEEEvWQE0TKkgReGA7VM=, tarball: rollup-plugin-typescript2/download/rollup-plugin-typescript2-0.36.0.tgz}
     peerDependencies:
       rollup: '>=1.26.3'
@@ -2804,17 +2884,29 @@ packages:
       '@rollup/pluginutils': 4.2.1
       find-cache-dir: 3.3.2
       fs-extra: 10.1.0
-      rollup: 3.1.0
+      rollup: 4.0.2
       semver: 7.5.4
       tslib: 2.6.2
       typescript: 5.2.2
     dev: true
 
-  /rollup/3.1.0:
-    resolution: {integrity: sha1-ExDHZO4xh8052TbIUQf0v7DK49c=, tarball: rollup/download/rollup-3.1.0.tgz}
-    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+  /rollup/4.0.2:
+    resolution: {integrity: sha1-4ORS0wiCVV1brJ2B146Ko77Yo0U=, tarball: rollup/download/rollup-4.0.2.tgz}
+    engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
+      '@rollup/rollup-android-arm-eabi': 4.0.2
+      '@rollup/rollup-android-arm64': 4.0.2
+      '@rollup/rollup-darwin-arm64': 4.0.2
+      '@rollup/rollup-darwin-x64': 4.0.2
+      '@rollup/rollup-linux-arm-gnueabihf': 4.0.2
+      '@rollup/rollup-linux-arm64-gnu': 4.0.2
+      '@rollup/rollup-linux-arm64-musl': 4.0.2
+      '@rollup/rollup-linux-x64-gnu': 4.0.2
+      '@rollup/rollup-linux-x64-musl': 4.0.2
+      '@rollup/rollup-win32-arm64-msvc': 4.0.2
+      '@rollup/rollup-win32-ia32-msvc': 4.0.2
+      '@rollup/rollup-win32-x64-msvc': 4.0.2
       fsevents: 2.3.3
 
   /run-applescript/5.0.0:
