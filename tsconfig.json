@@ -13,9 +13,12 @@
 		"esModuleInterop": true,
 		"noEmit": true,
 		"noUnusedLocals": true,
-		"noUnusedParameters": true,
+		"noUnusedParameters": false,
 		"noImplicitReturns": false,
 		"skipLibCheck": true,
-		"baseUrl": "./packages"
+		"baseUrl": "./packages",
+		"paths": {
+			"hostConfig": ["./react-dom/src/hostConfig.ts"]
+		}
 	}
 }
