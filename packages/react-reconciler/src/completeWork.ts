@@ -1,6 +1,6 @@
 import { FiberNode } from './fiber';
 import { NoFlags } from './fiberFlags';
-import { appendInitialChild, createInstance, createTextInstance } from './hostConfig';
+import { appendInitialChild, Container, createInstance, createTextInstance } from 'hostConfig';
 import { HostComponent, HostRoot, HostText } from './workTags';
 
 // 递归中的归阶段
@@ -38,7 +38,7 @@ export const completeWork = (wip: FiberNode) => {
 	}
 };
 
-const appendAllChildren = (parent: any, wip: FiberNode) => {
+const appendAllChildren = (parent: Container, wip: FiberNode) => {
 	let node = wip.child;
 	while (node !== null) {
 		// 往下找
