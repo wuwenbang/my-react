@@ -28,7 +28,7 @@ export const completeWork = (wip: FiberNode) => {
 				// update
 			} else {
 				// 1. 构建DOM
-				const instance = createTextInstance(newProps.cot);
+				const instance = createTextInstance(newProps.content);
 				wip.stateNode = instance;
 			}
 			bubbleProperties(wip);
