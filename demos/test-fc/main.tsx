@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 const App = () => {
+	const [count, setCount] = useState(100);
 	return (
 		<div>
-			<Child />
+			{count}
 		</div>
 	);
-};
-const Child = () => {
-	return <span>Hello React!</span>;
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
