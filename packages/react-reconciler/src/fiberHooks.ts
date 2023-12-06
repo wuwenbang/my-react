@@ -1,5 +1,9 @@
-// import internals from 'shared/internals';
+import { Dispatch, Dispatcher } from 'react/src/currentDispatcher';
+import internals from 'shared/internals';
+import { Action } from 'shared/ReactTypes';
 import { FiberNode } from './fiber';
+import { createUpdate, createUpdateQueue, enqueueUpdate, UpdateQueue } from './updateQueue';
+import { scheduleUpdateOnFiber } from './workLoop';
 
 interface Hook {
 	memoizedState: any;
@@ -7,13 +11,13 @@ interface Hook {
 	next: Hook | null;
 }
 
-let currentRenderingFiber: FiberNode | null = null;
 let currentlyRenderingFiber: FiberNode | null = null;
 let workInProgressHook: Hook | null = null;
+const { currentDispatcher } = internals;
 
 export const renderWithHooks = (wip: FiberNode) => {
 	// 赋值操作
-	currentRenderingFiber = wip;
+	currentlyRenderingFiber = wip;
 	wip.memorizedState = null;
 
 	const current = wip.alternate;
@@ -22,14 +26,46 @@ export const renderWithHooks = (wip: FiberNode) => {
 		// update
 	} else {
 		// mount
+		currentDispatcher.current = HooksDispatcherOnMount;
 	}
 
 	const Component = wip.type;
 	const props = wip.pendingProps;
 	const children = Component(props);
 	// 重置操作
-	currentRenderingFiber = null;
+	currentlyRenderingFiber = null;
 	return children;
+};
+
+const mountState = <State>(initialState: State | (() => State)): [State, Dispatch<State>] => {
+	const hook = mountWorkInProgresHook();
+	let memorizedState;
+	if (initialState instanceof Function) {
+		memorizedState = initialState();
+	} else {
+		memorizedState = initialState;
+	}
+	const queue = createUpdateQueue<State>();
+	hook.updateQueue = queue;
+	hook.memoizedState = memorizedState;
+	// @ts-ignore
+	const dispatch = dispatchSetState.bind(null, currentlyRenderingFiber, queue);
+	queue.dispatch = dispatch;
+	return [memorizedState, dispatch];
+};
+
+const HooksDispatcherOnMount: Dispatcher = {
+	useState: mountState
+};
+
+const dispatchSetState = <State>(
+	fiber: FiberNode,
+	updateQueue: UpdateQueue<State>,
+	action: Action<State>
+) => {
+	const update = createUpdate(action);
+	enqueueUpdate(updateQueue, update);
+	scheduleUpdateOnFiber(fiber);
 };
 
 const mountWorkInProgresHook = (): Hook => {
