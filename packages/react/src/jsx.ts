@@ -12,6 +12,10 @@ const ReactElement = (type: Type, key: Key, ref: Ref, props: Props): ReactElemen
 	return element;
 };
 
+export const isValidElement = (element: any) => {
+	return typeof element === 'object' && element !== null && element.$$typeof === REACT_ELEMENT_TYPE;
+};
+
 export const jsx = (type: ElementType, params: any, ...children: any) => {
 	let key: Key = null;
 	let ref: Ref = null;

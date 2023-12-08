@@ -1,12 +1,14 @@
 /** React */
 
 import { currentDispatcher, Dispatcher, resolveDispatcher } from './src/currentDispatcher';
-import { jsxDEV } from './src/jsx';
+import { jsx, isValidElement as _isValidElement } from './src/jsx';
 
-export default {
-	version: '0.0.0',
-	createElement: jsxDEV
-};
+export const version = '0.0.0';
+
+// TODO 根据环境使用 jsx / jsxDEV
+export const createElement = jsx;
+
+export const isValidElement = _isValidElement;
 
 export const useState: Dispatcher['useState'] = (initialState) => {
 	const dispacher = resolveDispatcher();
