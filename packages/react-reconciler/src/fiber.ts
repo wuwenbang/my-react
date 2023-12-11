@@ -18,6 +18,7 @@ export class FiberNode {
 	flags: number;
 	updateQueue: unknown;
 	subtreeFlags: Flags;
+	deletions: Array<FiberNode> | null;
 	constructor(tag: WorkTag, peddingProps: Props, key: Key) {
 		this.tag = tag;
 		this.key = key;
@@ -44,6 +45,7 @@ export class FiberNode {
 		// effect
 		this.flags = NoFlags;
 		this.subtreeFlags = NoFlags;
+		this.deletions = null;
 	}
 }
 
