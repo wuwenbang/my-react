@@ -1,5 +1,5 @@
 import { FiberNode } from './fiber';
-import { NoFlags } from './fiberFlags';
+import { NoFlags, Update } from './fiberFlags';
 import { appendInitialChild, Container, createInstance, createTextInstance } from 'hostConfig';
 import { FunctionComponent, HostComponent, HostRoot, HostText } from './workTags';
 
@@ -16,7 +16,7 @@ export const completeWork = (wip: FiberNode) => {
 			return null;
 		case HostComponent:
 			if (current !== null && wip.stateNode !== null) {
-				// update
+				// TODO HostComponent的更新
 			} else {
 				// 1. 构建DOM
 				const instance = createInstance(wip.type, newProps);
@@ -28,7 +28,11 @@ export const completeWork = (wip: FiberNode) => {
 			return null;
 		case HostText:
 			if (current !== null && wip.stateNode !== null) {
-				// update
+				const oldText = current.memorizedProps.children;
+				const newText = newProps.children;
+				if (oldText !== newText) {
+					markUpdate(wip);
+				}
 			} else {
 				// 1. 构建DOM
 				const instance = createTextInstance(newProps.content);
@@ -79,4 +83,8 @@ const bubbleProperties = (wip: FiberNode) => {
 		child = child.sibling;
 	}
 	wip.subtreeFlags |= subtreeFlags;
+};
+
+const markUpdate = (fiber: FiberNode) => {
+	fiber.flags |= Update;
 };
