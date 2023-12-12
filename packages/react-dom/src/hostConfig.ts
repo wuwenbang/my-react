@@ -1,3 +1,6 @@
+import { FiberNode } from 'react-reconciler/src/fiber';
+import { HostText } from 'react-reconciler/src/workTags';
+
 export type Container = any;
 export type Instance = any;
 
@@ -16,3 +19,19 @@ export const appendInitialChild = (parent: Instance | Container, child: Instance
 };
 
 export const appendChildToContainer = appendInitialChild;
+
+export const commitUpdate = (fiber: FiberNode) => {
+	switch (fiber.tag) {
+		case HostText:
+			const text = fiber.memorizedProps.content;
+			return commitTextUpdate(fiber.stateNode, text);
+		default:
+			if (__DEV__) {
+				console.warn('unachieved update');
+			}
+	}
+};
+
+export const commitTextUpdate = (textInstance: Text, content: string) => {
+	textInstance.textContent = content;
+};
