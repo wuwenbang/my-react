@@ -13,6 +13,7 @@ interface Hook {
 
 let currentlyRenderingFiber: FiberNode | null = null;
 let workInProgressHook: Hook | null = null;
+let currentHook: Hook | null = null;
 const { currentDispatcher } = internals;
 
 export const renderWithHooks = (wip: FiberNode) => {
@@ -24,6 +25,7 @@ export const renderWithHooks = (wip: FiberNode) => {
 
 	if (current !== null) {
 		// update
+		currentDispatcher.current = HooksDispatcherOnUpdate;
 	} else {
 		// mount
 		currentDispatcher.current = HooksDispatcherOnMount;
@@ -38,7 +40,7 @@ export const renderWithHooks = (wip: FiberNode) => {
 };
 
 const mountState = <State>(initialState: State | (() => State)): [State, Dispatch<State>] => {
-	const hook = mountWorkInProgresHook();
+	const hook = mountWorkInProgressHook();
 	let memorizedState;
 	if (initialState instanceof Function) {
 		memorizedState = initialState();
@@ -54,8 +56,17 @@ const mountState = <State>(initialState: State | (() => State)): [State, Dispatc
 	return [memorizedState, dispatch];
 };
 
+const updateState = <State>(initialState: State | (() => State)): [State, Dispatch<State>] => {
+	const hook = updateWorkInProgressHook();
+	// Todo
+};
+
 const HooksDispatcherOnMount: Dispatcher = {
 	useState: mountState
+};
+
+const HooksDispatcherOnUpdate: Dispatcher = {
+	useState: updateState
 };
 
 const dispatchSetState = <State>(
@@ -68,7 +79,7 @@ const dispatchSetState = <State>(
 	scheduleUpdateOnFiber(fiber);
 };
 
-const mountWorkInProgresHook = (): Hook => {
+const mountWorkInProgressHook = (): Hook => {
 	const hook: Hook = {
 		memoizedState: null,
 		updateQueue: null,
@@ -88,4 +99,8 @@ const mountWorkInProgresHook = (): Hook => {
 		workInProgressHook = hook;
 	}
 	return workInProgressHook;
+};
+
+const updateWorkInProgressHook = (): Hook => {
+	// Todo
 };
