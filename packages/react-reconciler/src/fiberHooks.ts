@@ -2,7 +2,13 @@ import { Dispatch, Dispatcher } from 'react/src/currentDispatcher';
 import internals from 'shared/internals';
 import { Action } from 'shared/ReactTypes';
 import { FiberNode } from './fiber';
-import { createUpdate, createUpdateQueue, enqueueUpdate, UpdateQueue } from './updateQueue';
+import {
+	createUpdate,
+	createUpdateQueue,
+	enqueueUpdate,
+	processUpdateQueue,
+	UpdateQueue
+} from './updateQueue';
 import { scheduleUpdateOnFiber } from './workLoop';
 
 interface Hook {
@@ -58,7 +64,17 @@ const mountState = <State>(initialState: State | (() => State)): [State, Dispatc
 
 const updateState = <State>(initialState: State | (() => State)): [State, Dispatch<State>] => {
 	const hook = updateWorkInProgressHook();
-	// Todo
+
+	// 计算新state的逻辑
+	const queue = hook.updateQueue as UpdateQueue<State>;
+	const pending = queue.shared.pending;
+
+	if (pending !== null) {
+		const { memorizedState } = processUpdateQueue(hook.memoizedState, pending);
+		hook.memoizedState = memorizedState;
+	}
+
+	return [hook.memoizedState, queue.dispatch as Dispatch<State>];
 };
 
 const HooksDispatcherOnMount: Dispatcher = {
@@ -102,5 +118,47 @@ const mountWorkInProgressHook = (): Hook => {
 };
 
 const updateWorkInProgressHook = (): Hook => {
-	// Todo
+	// TODO render阶段触发的更新
+	let nextCurrentHook: Hook | null;
+
+	if (currentHook === null) {
+		// 这是这个FC update时的第一个hook
+		const current = currentlyRenderingFiber?.alternate;
+		if (current !== null) {
+			nextCurrentHook = current?.memorizedState;
+		} else {
+			// mount
+			nextCurrentHook = null;
+		}
+	} else {
+		// 这个FC update时 后续的hook
+		nextCurrentHook = currentHook.next;
+	}
+
+	if (nextCurrentHook === null) {
+		// mount/update u1 u2 u3
+		// update       u1 u2 u3 u4
+		throw new Error(`组件${currentlyRenderingFiber?.type}本次执行时的Hook比上次执行时多`);
+	}
+
+	currentHook = nextCurrentHook as Hook;
+	const newHook: Hook = {
+		memoizedState: currentHook.memoizedState,
+		updateQueue: currentHook.updateQueue,
+		next: null
+	};
+	if (workInProgressHook === null) {
+		// mount时 第一个hook
+		if (currentlyRenderingFiber === null) {
+			throw new Error('请在函数组件内调用hook');
+		} else {
+			workInProgressHook = newHook;
+			currentlyRenderingFiber.memorizedState = workInProgressHook;
+		}
+	} else {
+		// mount时 后续的hook
+		workInProgressHook.next = newHook;
+		workInProgressHook = newHook;
+	}
+	return workInProgressHook;
 };
