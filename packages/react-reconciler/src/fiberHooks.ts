@@ -12,7 +12,7 @@ import {
 import { scheduleUpdateOnFiber } from './workLoop';
 
 interface Hook {
-	memoizedState: any;
+	memorizedState: any;
 	updateQueue: unknown;
 	next: Hook | null;
 }
@@ -42,6 +42,8 @@ export const renderWithHooks = (wip: FiberNode) => {
 	const children = Component(props);
 	// 重置操作
 	currentlyRenderingFiber = null;
+	workInProgressHook = null;
+	currentHook = null;
 	return children;
 };
 
@@ -55,14 +57,14 @@ const mountState = <State>(initialState: State | (() => State)): [State, Dispatc
 	}
 	const queue = createUpdateQueue<State>();
 	hook.updateQueue = queue;
-	hook.memoizedState = memorizedState;
+	hook.memorizedState = memorizedState;
 	// @ts-ignore
 	const dispatch = dispatchSetState.bind(null, currentlyRenderingFiber, queue);
 	queue.dispatch = dispatch;
 	return [memorizedState, dispatch];
 };
 
-const updateState = <State>(initialState: State | (() => State)): [State, Dispatch<State>] => {
+const updateState = <State>(): [State, Dispatch<State>] => {
 	const hook = updateWorkInProgressHook();
 
 	// 计算新state的逻辑
@@ -70,11 +72,11 @@ const updateState = <State>(initialState: State | (() => State)): [State, Dispat
 	const pending = queue.shared.pending;
 
 	if (pending !== null) {
-		const { memorizedState } = processUpdateQueue(hook.memoizedState, pending);
-		hook.memoizedState = memorizedState;
+		const { memorizedState } = processUpdateQueue(hook.memorizedState, pending);
+		hook.memorizedState = memorizedState;
 	}
 
-	return [hook.memoizedState, queue.dispatch as Dispatch<State>];
+	return [hook.memorizedState, queue.dispatch as Dispatch<State>];
 };
 
 const HooksDispatcherOnMount: Dispatcher = {
@@ -97,7 +99,7 @@ const dispatchSetState = <State>(
 
 const mountWorkInProgressHook = (): Hook => {
 	const hook: Hook = {
-		memoizedState: null,
+		memorizedState: null,
 		updateQueue: null,
 		next: null
 	};
@@ -143,7 +145,7 @@ const updateWorkInProgressHook = (): Hook => {
 
 	currentHook = nextCurrentHook as Hook;
 	const newHook: Hook = {
-		memoizedState: currentHook.memoizedState,
+		memorizedState: currentHook.memorizedState,
 		updateQueue: currentHook.updateQueue,
 		next: null
 	};
